@@ -1,0 +1,13 @@
+/*Top*/
+.top_header {border-bottom: 1px solid var(--light-gray); height: 80px;}
+
+/*Nav*/
+.nav_wrap {width: 15%; border-right: 1px solid var(--light-gray); padding: 0 30px; }
+.nav_wrap .logo_wrap {font-weight: 700; height: 80px; line-height: 80px;}
+.nav_wrap .logo_wrap a {color: var(--main-color); font-size: 18px; display: flex; align-items: center; text-decoration: none;}
+.nav_wrap .logo_wrap p {padding: 0 5px;}
+
+.profile_wrap {padding: 30px 0; text-align: center;}
+.profile_img {background: url('../img/profile.png') center no-repeat; height: 122px;}
+.profile_name {padding: 30px 0 20px 0; font-size: 16px; font-weight: 600;}
+.profile_description {color: #666; font-size: 14px;}

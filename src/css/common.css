@@ -1,0 +1,4 @@
+.body {display: flex;}
+.container {width: 85%;}
+
+.content {background: var(--light-gray);}
