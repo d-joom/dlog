@@ -1,4 +1,10 @@
 .body {display: flex;}
-.container {width: 85%;}
+.container {width: 100%;}
 
-.content {background: var(--light-gray);}
+.en_font {font-family: "Montserrat";}
+
+.ml-5 {margin-left:5px;}
+
+.content {background: var(--light-gray); height: 100%;}
+
+.content_box {background: #fff; border-radius: 30px; width: 100%; gap: 30px; padding: 40px 30px;}

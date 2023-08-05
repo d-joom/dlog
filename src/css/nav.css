@@ -1,13 +1,42 @@
 /*Top*/
-.top_header {border-bottom: 1px solid var(--light-gray); height: 80px;}
+.top_header {border-bottom: 1px solid var(--gray-line); height: 80px; padding: 0 110px; display: flex; align-items: center;}
+.search_wrap {width: 250px; display: flex; padding: 0 30px; box-sizing: border-box; height: 40px; background-color: var(--light-gray); border-radius: 30px;} 
+.search_wrap input {background: none; border: none; width: 100%; font-size: 16px;}
+.search_wrap input:focus {outline: none;}
+.search_wrap input::placeholder {color: #c5c9dc; font-size: 14px;}
+.search_wrap a {line-height: 40px; font-size: 20px; color: #c5c9dc;}
+.search_wrap a:hover {color:#b4b8ca;}
 
 /*Nav*/
-.nav_wrap {width: 15%; border-right: 1px solid var(--light-gray); padding: 0 30px; }
-.nav_wrap .logo_wrap {font-weight: 700; height: 80px; line-height: 80px;}
-.nav_wrap .logo_wrap a {color: var(--main-color); font-size: 18px; display: flex; align-items: center; text-decoration: none;}
+.nav_wrap {width: 320px; box-sizing: border-box; border-right: 1px solid var(--gray-line); padding: 0 30px; }
+.nav_wrap .logo_wrap {font-weight: 700; height: 80px; line-height: 80px; }
+.nav_wrap .logo_wrap a {color: var(--main-color); font-family: var(--en-font); font-size: 18px; display: flex; align-items: center; text-decoration: none; justify-content: center;}
 .nav_wrap .logo_wrap p {padding: 0 5px;}
 
-.profile_wrap {padding: 30px 0; text-align: center;}
+.profile_wrap {padding: 25px 0; text-align: center;}
 .profile_img {background: url('../img/profile.png') center no-repeat; height: 122px;}
-.profile_name {padding: 30px 0 20px 0; font-size: 16px; font-weight: 600;}
-.profile_description {color: #666; font-size: 14px;}
+.profile_name {padding: 30px 0 15px 0; font-size: 17px; font-weight: 600;}
+.profile_description {color: #666; font-size: 14px; line-height: 18px;}
+
+.career_btn {margin : 30px 0 10px;}
+.career_btn button {width: 130px;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid var(--main-color);
+    background: #fff;
+    color: var(--main-color);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--en-font);}
+.career_btn button:hover {cursor: pointer;}
+.category_wrap {border-top: 1px solid var(--gray-line); padding-top: 20px;}
+.category_wrap .depth1 > li {padding:10px 0;}
+.depth1 > li > a {position: relative; font-size: 16px; color: #333; font-weight: 600; text-decoration: none; padding: 15px 20px 15px 50px; background:var(--gray-line); border-radius: 10px; display: block;}
+.depth1 > li > a::before {position:absolute; content:''; width: 20px; height: 20px; background:url('../img/dir_black_bg.png') center no-repeat; left: 20px; top: 50%; translate: 0 -50%;}
+
+.depth2 {padding-left: 50px; position:relative; margin: 20px 0;}
+.depth2::before {position:absolute; content:''; width: 1px; height: 100%; left: 20px; background-color: var(--gray-line);}
+.depth2 > li > a {color: #666; font-size: 15px; font-weight: 500; text-decoration: none; margin: 10px 0; line-height: 35px;}
+.depth2 > li > a > span {font-size: 13px;}
+.depth2 > li > a:hover {color:var(--main-color); font-weight: 600;}
+.depth2 .depth2_active {color:var(--main-color); font-weight: 600;}

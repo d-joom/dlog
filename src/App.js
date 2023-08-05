@@ -7,6 +7,7 @@ import Main from './component/Main';
 function App() {
   return (
     <div className="body"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"></link>
       <Navigation />
       <div className="container">
         <Header />

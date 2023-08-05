@@ -5,7 +5,7 @@ import Dir from '../img/dir.png';
 const Navigation = () => {
     return (
         <div className="nav_wrap">
-            <div className="logo_wrap en_font">
+            <div className="logo_wrap">
                 <a href="#">
                     <img src={Logo} alt="logo image"/><p>DEV</p>
                     <img src={Dir} alt="logo dir image"/><p>PLANA</p>
@@ -20,9 +20,11 @@ const Navigation = () => {
                 </div>
                 <div className="profile_description">
                     3년차 백엔드 개발자<br/>
-                    Java / Spring Framework / Rust / React
+                    Java / React
                 </div>
-                <div className="career_btn">Career</div>
+                <div className="career_btn">
+                    <button>Career<i class="xi-angle-right-min ml-5"></i></button>
+                </div>
             </div>
             <div className="category_wrap">
                 <ul className="depth1">
@@ -33,7 +35,7 @@ const Navigation = () => {
                                 <a href="#">React.js <span>(12)</span></a>
                             </li>
                             <li>
-                                <a href="#">Vue.js <span>(12)</span></a>
+                                <a href="#" class="depth2_active">Vue.js <span>(12)</span></a>
                             </li>
                             <li>
                                 <a href="#">html <span>(12)</span></a>
