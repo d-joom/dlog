@@ -2,9 +2,9 @@
 
 /*main dashboard*/
 
-.dashboard {display: flex; gap: 30px;}
+.dashboard {display: flex; gap: 30px; margin-bottom: 60px;} 
 .dashboard .content_box:first-child ul {display: flex; gap: 20px;}
-.dashboard .content_box:first-child ul .dashboard_logo_wrap {width: 100px; height: 100px; border: 1px solid var(--light-gray); border-radius: 50px; display: flex; justify-content: center; align-items: center;}
+.dashboard .content_box:first-child ul .dashboard_logo_wrap {width: 100px; height: 100px; border: 1px solid var(--gray-line); border-radius: 50px; display: flex; justify-content: center; align-items: center;}
 .dashboard .content_box:first-child ul li {position:relative; width: 100px; font-family: var(--en-font);}
 .dashboard .content_box:first-child ul li .stack_num {position:absolute; width: 25px; height: 25px; background-color: var(--main-color); border-radius: 50px; color: #fff; font-size: 15px; font-weight: 600; line-height: 25px; text-align: center;}
 .dashboard .content_box:first-child ul li p {text-align: center; margin-top: 15px; font-weight:500; word-break: keep-all;}
@@ -19,9 +19,9 @@
 
 /*all posts*/
 
-.post_li_wrap {padding-top: 60px;}
-.post_li_wrap .post_li_wrap_title {position: relative; font-size: 18px; font-family: var(--en-font); color: var(--main-color); font-weight: 900; padding-left: 20px;}
-.post_li_wrap .post_li_wrap_title::before {position:absolute; content:''; width: 13px; height: 13px; background:url('../img/dir.png') center no-repeat; left:0;}
+.post_li_wrap {}
+.post_title {position: relative; font-size: 18px; font-family: var(--en-font); color: var(--main-color); font-weight: 900; padding-left: 20px;}
+.post_title::before {position:absolute; content:''; width: 13px; height: 13px; background:url('../img/dir.png') center no-repeat; left:0;}
 .post_li_wrap ul {padding-top: 30px;}
 .post_li_wrap ul li {padding: 15px 0;}
 .post_li_wrap ul li:first-child {padding-top: 0;}
@@ -32,3 +32,4 @@
 .post_li_wrap ul li .content_box .li_text {padding: 15px 0; color: #666;}
 .post_li_wrap .tag_wrap {display: flex;}
 .post_li_wrap .tag_wrap .tag {color: var(--main-color); padding-right: 20px; }
+

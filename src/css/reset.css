@@ -23,6 +23,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+a:hover {
+	cursor: pointer;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -47,14 +51,7 @@ table {
 	border-spacing: 0;
 }
 
+button {background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer}
 
-
-/*custom*/
-body {
-	--main-color: #028070;
-	--light-gray: #f2f3f7;
-	--gray-line: #e7e8f0;
-	--en-font:'Montserrat', sans-serif;
-}
 
 

@@ -7,6 +7,7 @@ const header = () => {
                 <input placeholder='Search'></input>
                 <a href="#"><i class="xi-search"></i></a>
             </div>
+            <a className="login_btn" href="/login">login</a>
         </div>
     );
 };

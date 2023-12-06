@@ -1,0 +1,7 @@
+#login {background-color: var(--light-gray); height:100vh; display: flex; justify-content: center;
+    align-items: center; font-family: var(--en-font);}
+.login_wrap {background-color: #fff; border-radius: 15px; padding: 50px; text-align: center; min-width: 350px;}
+.login_wrap h1 {font-size: 2rem; font-weight: 600; color: var(--main-color);}
+.login_wrap p {padding: 15px 0;}
+.login_wrap input {font-family: var(--en-font); margin-top: 10px;}
+.login_wrap .login_btn {background-color: var(--main-color); color: #fff; padding: 15px; margin-top:15px; width: 100%;}

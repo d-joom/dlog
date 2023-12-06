@@ -1,15 +1,17 @@
 import React from 'react';
 import Logo from '../img/logo.png';
 import Dir from '../img/dir.png';
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
     return (
         <div className="nav_wrap">
+            <div>
             <div className="logo_wrap">
-                <a href="#">
+                <Link to="/">
                     <img src={Logo} alt="logo image"/><p>DEV</p>
                     <img src={Dir} alt="logo dir image"/><p>PLANA</p>
-                </a>
+                </Link>
             </div>
             <div className="profile_wrap">
                 <div className="profile_img">
@@ -55,6 +57,7 @@ const Navigation = () => {
                         <a href="#">DataBase</a>
                     </li>
                 </ul>
+            </div>
             </div>
         </div>
         

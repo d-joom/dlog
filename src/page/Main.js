@@ -60,7 +60,7 @@ const Main = () => {
                 </div>
             </div>
             <div className="post_li_wrap">
-                <p className="post_li_wrap_title">All Posts</p>
+                <p className="post_title">All Posts</p>
                 <ul>
                     <li>
                         <div className="content_box">
