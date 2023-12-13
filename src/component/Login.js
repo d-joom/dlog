@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Logo from '../img/logo.png';
-import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -10,9 +8,9 @@ const Login = () => {
         password : ""
     });
 
-    login = () => {
+    const onLogin = () => {
         axios
-            .get("https://jsonplaceholder.typicode.com/posts",
+            .post("https://jsonplaceholder.typicode.com/posts",
             {
                 email: login.id,
                 password: login.password
@@ -23,18 +21,34 @@ const Login = () => {
                 }
             })
             .then(response => {
-                setUsers(response.data);
+                setLogin(response.data);
             }).catch(e => {
                 console.error(e);
             });
     }
 
-    const onIdHandler = (e) => {
-        setLogin(login => ({...login, id: e.currentTarget.value}));
-    }
+    const onChange = (e) => {
+        const {value, name} = e.target;
+        setLogin({
+            ...login,
+            [name] : value
+        });
+    };
 
-    const onPasswordHandler = (e) => {
-        setLogin(login => ({...login, password: e.currentTarget.value}));
+    const onSubmitHandler = (e) => {
+        //버튼 리프레시 방지
+        e.preventDefault();
+
+        console.log("id : ", login.id);
+        console.log("pw : ", login.password);
+
+        let body = {
+            id: login.id,
+            password: login.password
+        }
+
+        onLogin();
+        
     }
 
     return (
@@ -42,15 +56,17 @@ const Login = () => {
             <div className="login_wrap">
                 <h1>Welcome!</h1>
                 <p>Sign in to your account</p>
+                <form onSubmit={onSubmitHandler}>
                 <div className="login_input_wrap">
                     <div className="id_input">
-                        <input type="text" placeholder="id" value={login.id} onChange={onIdHandler}></input>
+                        <input name="id" type="text" placeholder="id" value={login.id} onChange={onChange}></input>
                     </div>
                     <div className="password_input">
-                        <input type="text" placeholder="password" value={login.password} onChange={onPasswordHandler}></input>
+                        <input name="password" type="password" placeholder="password" value={login.password} onChange={onChange}></input>
                     </div>
                 </div>
                 <button className="login_btn">LOGIN</button>
+                </form>
             </div>
         </div>
         
