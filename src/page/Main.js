@@ -1,5 +1,6 @@
-import React from 'react';
-import "../css/main.css";
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import '../css/main.css';
 import Stack_1 from '../img/stack_java.png';
 import Stack_2 from '../img/stack_react.png';
 import Stack_3 from '../img/stack_mysql.png';
@@ -7,6 +8,19 @@ import Stack_4 from '../img/stack_es.png';
 import Stack_5 from '../img/stack_rust.png';
 
 const Main = () => {
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("https://jsonplaceholder.typicode.com/users")
+            .then(response => {
+                setUsers(response.data);
+            }).catch(e => {
+                console.error(e);
+            });
+    })
+
     return (
         <div className="content">
             <div className="dashboard">
@@ -62,81 +76,23 @@ const Main = () => {
             <div className="post_li_wrap">
                 <p className="post_title">All Posts</p>
                 <ul>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
+                    {users.map(user => {
+                        return (<li key={user.id}>
+                            <div className="content_box">
+                                <div className="li_title">
+                                    <span>Java</span>
+                                    <p>{user.username}</p>
+                                </div>
+                                <p className="li_text">
+                                    {user.name}
+                                </p>
+                                <div className="tag_wrap">
+                                    <div className="tag">{user.email}</div>
+                                    <div className="tag">{user.website}</div>
+                                </div>
                             </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>)
+                    })}
                 </ul>
             </div>
         </div>
