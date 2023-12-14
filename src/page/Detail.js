@@ -1,7 +1,7 @@
 import React from 'react';
 import "../css/main.css";
 
-const post = () => {
+const Post = () => {
     return (
         <div className="content">
             <div classNmae="post_detail_wrap">
@@ -31,4 +31,4 @@ Contrary to popular belief, Lorem Ipsum is not simply random text.
     );
 };
 
-export default post;
+export default Post;
