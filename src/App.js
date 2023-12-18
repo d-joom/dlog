@@ -7,7 +7,7 @@ import List from './page/List';
 import Detail from './page/Detail';
 import Write from './page/Write';
 import Layout from './component/Layout';
-import Login from './component/Login';
+import Login from './page/Login';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {

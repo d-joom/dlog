@@ -10,9 +10,9 @@ const Login = () => {
 
     const onLogin = () => {
         axios
-            .post("https://jsonplaceholder.typicode.com/posts",
+            .post("/login",
             {
-                email: login.id,
+                userId: login.id,
                 password: login.password
             },{
                 headers: {
@@ -21,8 +21,13 @@ const Login = () => {
                 }
             })
             .then(response => {
-                setLogin(response.data);
-            }).catch(e => {
+                localStorage.setItem('login-token', response.data);
+            })
+            .then(
+                console.log(localStorage.getItem("login-token"))
+            )
+            .catch(e => {
+                console.log("---------------");
                 console.error(e);
             });
     }
@@ -38,15 +43,11 @@ const Login = () => {
     const onSubmitHandler = (e) => {
         //버튼 리프레시 방지
         e.preventDefault();
-
-        console.log("id : ", login.id);
-        console.log("pw : ", login.password);
-
         let body = {
             id: login.id,
             password: login.password
         }
-
+        console.log(login);
         onLogin();
         
     }
@@ -57,15 +58,15 @@ const Login = () => {
                 <h1>Welcome!</h1>
                 <p>Sign in to your account</p>
                 <form onSubmit={onSubmitHandler}>
-                <div className="login_input_wrap">
-                    <div className="id_input">
-                        <input name="id" type="text" placeholder="id" value={login.id} onChange={onChange}></input>
+                    <div className="login_input_wrap">
+                        <div className="id_input">
+                            <input name="id" type="text" placeholder="id" value={login.id} onChange={onChange}></input>
+                        </div>
+                        <div className="password_input">
+                            <input name="password" type="password" placeholder="password" value={login.password} onChange={onChange}></input>
+                        </div>
                     </div>
-                    <div className="password_input">
-                        <input name="password" type="password" placeholder="password" value={login.password} onChange={onChange}></input>
-                    </div>
-                </div>
-                <button className="login_btn">LOGIN</button>
+                    <button type="submit" className="login_btn">LOGIN</button>
                 </form>
             </div>
         </div>

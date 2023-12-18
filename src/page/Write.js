@@ -18,13 +18,16 @@ const Write = () => {
                 </div>
                 
                 <div className="write_content_wrap">
-                    <Editor
-                        previewStyle="vertical"
-                        height="600px"
-                        initialEditType="wysiwyg"
-                        useCommandShortcut={false}
-                    />
+                <Editor
+                    height="400px"
+                    placeholder="Please Enter Text."
+                />
+
+
+                
                 </div>
+
+                
             </div>
         </div>
     );

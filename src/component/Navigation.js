@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import Logo from '../img/logo.png';
 import Dir from '../img/dir.png';
 import { Link } from 'react-router-dom';
 
 const Navigation = () => {
+
+    const [menu, setMenu] = useState([]);
+    const [subMenu, setSubMenu] = useState();
+
+    useEffect(() => {
+        axios
+            .get("/blog/categories")
+            .then(response => {
+                setMenu(response.data.list);
+            })
+            .catch(e => {
+                console.error(e);
+            });
+    },[])
+
     return (
         <div className="nav_wrap">
             <div>
@@ -29,6 +45,11 @@ const Navigation = () => {
                 </div>
             </div>
             <div className="category_wrap">
+            {menu.map(m => {
+                        return (<li key={m.id}>
+                            <p>{m.name}</p>
+                        </li>)
+                    })}
                 <ul className="depth1">
                     <li>
                         <a href="#">Front-End</a>
