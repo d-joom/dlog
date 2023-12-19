@@ -1,6 +1,7 @@
 /*custom 	--main-color: #028070;*/
 body {
 	--main-color: #2c50d7;
+	--main-dark-color: #1d40c0;
 	--light-gray: #f2f3f7;
 	--gray-line: #d3d3d3;
 	--en-font:'Montserrat', sans-serif;
@@ -15,8 +16,17 @@ body {
 .content {background: var(--light-gray); height: 100%;}
 .content_box {background: #fff; border-radius: 30px; width: 100%; gap: 30px; padding: 40px 30px;}
 
-input {border: 1px solid var(--gray-line); padding: 15px; box-sizing:border-box; font-size: 1rem; width: 100%;}
-input:focus {outline: none; border:1px solid var(--main-color);}
+input {border: 1px solid var(--gray-line); padding : 10px; box-sizing:border-box; font-size: 1rem; width: 100%;}
+input:focus, select:focus {outline: none; border:1px solid var(--main-color);}
+
+select {border: 1px solid var(--gray-line); padding : 10px; box-sizing:border-box; font-size: 1rem;}
+
+/*button*/
+button {font-size: 0.8rem; padding: 10px 15px; border-radius: 5px; }
+button.solid_btn {background: var(--main-color); color:#fff;}
+button.solid_btn:hover {background: var(--main-dark-color); transition: 0.5s;}
+button.outline_btn {background: #fff; border: 1px solid var(--gray-line); color: #666;}
+button.outline_btn:hover {background:var(--light-gray); transition: 0.5s;}
 
 /*list*/
 .post_title span {padding-left:5px; color:#333; font-size:0.9rem;}
