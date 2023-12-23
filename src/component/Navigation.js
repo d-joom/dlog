@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom';
 const Navigation = () => {
 
     const [menu, setMenu] = useState([]);
-    const [subMenu, setSubMenu] = useState();
 
     useEffect(() => {
         axios
-            .get("/blog/categories")
+            .get("/blog/categories/5bf00e8a-3222-4cef-a195-8ddd5af0c7c5")
             .then(response => {
                 setMenu(response.data.list);
+                console.log(response.data);
             })
             .catch(e => {
                 console.error(e);
@@ -45,38 +45,25 @@ const Navigation = () => {
                 </div>
             </div>
             <div className="category_wrap">
-            {menu.map(m => {
-                        return (<li key={m.id}>
-                            <p>{m.name}</p>
-                        </li>)
-                    })}
                 <ul className="depth1">
-                    <li>
-                        <a href="#">Front-End</a>
-                        <ul className="depth2">
-                            <li>
-                                <a href="#">React.js <span>(12)</span></a>
+                    {menu.map(m => {
+                        return (
+                            <li key={m.id}>
+                                <a href="#">{m.name}</a>
+                               {m.children.length > 0 ? 
+                               <ul className="depth2">
+                                    {m.children.map(children => {
+                                        return (
+                                    <li>
+                                        <a href="#">{children.name} <span></span></a>
+                                    </li>
+                                        )
+                                    })}
+                                    
+                                </ul> : null}
                             </li>
-                            <li>
-                                <a href="#" class="depth2_active">Vue.js <span>(12)</span></a>
-                            </li>
-                            <li>
-                                <a href="#">html <span>(12)</span></a>
-                            </li>
-                            <li>
-                                <a href="#">CSS <span>(12)</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Back-End</a>
-                    </li>
-                    <li>
-                        <a href="#">Server</a>
-                    </li>
-                    <li>
-                        <a href="#">DataBase</a>
-                    </li>
+                        )
+                    })}
                 </ul>
             </div>
             </div>

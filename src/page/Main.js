@@ -9,17 +9,19 @@ import Stack_5 from '../img/stack_rust.png';
 
 const Main = () => {
 
-    const [users, setUsers] = useState([]);
+    const [list, setList] = useState([]);
 
     useEffect(() => {
         axios
-            .get("https://jsonplaceholder.typicode.com/users")
+            .get("/posts?userBlogId=5bf00e8a-3222-4cef-a195-8ddd5af0c7c5&isDleted=false&isTemporary=false")
             .then(response => {
-                setUsers(response.data);
-            }).catch(e => {
+                setList(response.data.list);
+                console.log(response.data.list);
+            })
+            .catch(e => {
                 console.error(e);
             });
-    })
+    },[])
 
     return (
         <div className="content">
@@ -76,19 +78,19 @@ const Main = () => {
             <div className="post_li_wrap">
                 <p className="post_title">All Posts</p>
                 <ul>
-                    {users.map(user => {
-                        return (<li key={user.id}>
+                    {list.map(post => {
+                        return (<li key={post.id}>
                             <div className="content_box">
                                 <div className="li_title">
                                     <span>Java</span>
-                                    <p>{user.username}</p>
+                                    <p>{post.title}</p>
                                 </div>
                                 <p className="li_text">
-                                    {user.name}
+                                    {post.contents}
                                 </p>
                                 <div className="tag_wrap">
-                                    <div className="tag">{user.email}</div>
-                                    <div className="tag">{user.website}</div>
+                                    <div className="tag"></div>
+                                    <div className="tag"></div>
                                 </div>
                             </div>
                         </li>)
