@@ -14,10 +14,10 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout />} >
-        <Route path="/" element={<Main />} />
-        <Route path="/list" element={<List/>}/>
-        <Route path="/detail" element={<Detail/>}/>
-        <Route path="/write" element={<Write/>}/>
+        <Route path="/:userId" element={<Main />} />
+        <Route path="/:userId/list" element={<List/>}/>
+        <Route path="/:userId/detail/:uuid" element={<Detail/>}/>
+        <Route path="/:userId/write" element={<Write/>}/>
       </Route>
       <Route path="/login" element={<Login />}></Route>
     </Routes>

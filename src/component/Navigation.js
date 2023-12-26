@@ -13,7 +13,6 @@ const Navigation = () => {
             .get("/blog/categories/5bf00e8a-3222-4cef-a195-8ddd5af0c7c5")
             .then(response => {
                 setMenu(response.data.list);
-                console.log(response.data);
             })
             .catch(e => {
                 console.error(e);
@@ -24,7 +23,7 @@ const Navigation = () => {
         <div className="nav_wrap">
             <div>
             <div className="logo_wrap">
-                <Link to="/">
+                <Link to="/admin">
                     <img src={Logo} alt="logo image"/><p>DEV</p>
                     <img src={Dir} alt="logo dir image"/><p>PLANA</p>
                 </Link>

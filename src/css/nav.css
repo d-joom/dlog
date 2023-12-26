@@ -9,7 +9,7 @@
 
 /*Nav*/
 .nav_wrap {width: 320px; box-sizing: border-box; border-right: 1px solid var(--gray-line); padding: 0 30px; }
-.nav_wrap .logo_wrap {font-weight: 700; height: 80px; line-height: 80px; }
+.nav_wrap .logo_wrap {font-weight: 900; height: 80px; line-height: 80px; }
 .nav_wrap .logo_wrap a {color: var(--main-color); font-family: var(--en-font); font-size: 18px; display: flex; align-items: center; text-decoration: none; justify-content: center;}
 .nav_wrap .logo_wrap p {padding: 0 5px;}
 

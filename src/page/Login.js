@@ -21,7 +21,7 @@ const Login = () => {
                 }
             })
             .then(response => {
-                localStorage.setItem('login-token', response.data);
+                localStorage.setItem('accessToken', response.data);
             })
             .then(
                 console.log(localStorage.getItem("login-token"))

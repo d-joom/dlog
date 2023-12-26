@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import { useNavigate, useParams } from "react-router-dom";
 import '../css/main.css';
 import Stack_1 from '../img/stack_java.png';
 import Stack_2 from '../img/stack_react.png';
@@ -10,13 +11,28 @@ import Stack_5 from '../img/stack_rust.png';
 const Main = () => {
 
     const [list, setList] = useState([]);
+    const [userBlog, setUserBlog] = useState();
+    const navigate = useNavigate();
+
+    const param = useParams();
+
+    const goDetail = (e) => {
+        navigate(`detail/${e}`, {
+            state: userBlog
+        });
+    }
 
     useEffect(() => {
         axios
-            .get("/posts?userBlogId=5bf00e8a-3222-4cef-a195-8ddd5af0c7c5&isDleted=false&isTemporary=false")
+            .get(`/blog/${param.userId}`)
             .then(response => {
-                setList(response.data.list);
-                console.log(response.data.list);
+                setUserBlog(response.data.data);
+                axios
+                .get(`/posts?userBlogId=${response.data.data.uuid}&isDeleted=false&isTemporary=false`)
+                .then(postResponse => {
+                    console.log(postResponse);
+                    setList(postResponse.data.list);
+                })
             })
             .catch(e => {
                 console.error(e);
@@ -80,13 +96,13 @@ const Main = () => {
                 <ul>
                     {list.map(post => {
                         return (<li key={post.id}>
-                            <div className="content_box">
+                            <div className="content_box" onClick={() => goDetail(post.uuid)}>
                                 <div className="li_title">
                                     <span>Java</span>
                                     <p>{post.title}</p>
                                 </div>
                                 <p className="li_text">
-                                    {post.contents}
+                                    <div dangerouslySetInnerHTML = {{__html:post.contents}} />
                                 </p>
                                 <div className="tag_wrap">
                                     <div className="tag"></div>
