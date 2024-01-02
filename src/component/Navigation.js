@@ -7,12 +7,23 @@ import { Link } from 'react-router-dom';
 const Navigation = () => {
 
     const [menu, setMenu] = useState([]);
+    const [user, setUser] = useState([]);
+    const param = useParams();
 
     useEffect(() => {
         axios
             .get("/blog/categories/5bf00e8a-3222-4cef-a195-8ddd5af0c7c5")
             .then(response => {
                 setMenu(response.data.list);
+            })
+            .catch(e => {
+                console.error(e);
+            });
+
+        axios
+            .get(`/users/${param.userId}`)
+            .then(response => {
+                setUser(response.data.data);
             })
             .catch(e => {
                 console.error(e);
@@ -25,7 +36,6 @@ const Navigation = () => {
             <div className="logo_wrap">
                 <Link to="/admin">
                     <img src={Logo} alt="logo image"/><p>DEV</p>
-                    <img src={Dir} alt="logo dir image"/><p>PLANA</p>
                 </Link>
             </div>
             <div className="profile_wrap">
