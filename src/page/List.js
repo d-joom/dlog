@@ -1,87 +1,52 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../css/main.css";
 
-const list = () => {
+
+const List = () => {
+
+    const [list, setList] = useState([]);
+    const navigate = useNavigate();
+
+    const param = useParams();
+    const {state} = useLocation();
+
+    useEffect(() => {
+        axios
+            .get(`/posts?userBlogCategoryId=${param.uuid}`)
+            .then(response => {
+                setList(response.data.list);
+            })
+            .catch(e => {
+                console.error(e);
+            });
+
+        
+    },[param.uuid])
+
     return (
         <div className="content">
             <div className="post_li_wrap">
-                <p className="post_title">네트워크/보안<span>(13)</span></p>
+                <p className="post_title">{state.name}<span>(13)</span></p>
                 <ul>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="content_box">
-                            <div className="li_title">
-                                <span>Java</span>
-                                <p>@JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</p>
-                            </div>
-                            <p className="li_text">
-                                Restful API 데이터를 조회해서 ObjectMapper를 이용해 Object 매핑을 하는데, 해당 데이터의 model에서 빠진 필드가 있는 경우 Unrecognized field 에러가 난다. Json to Java Object..
-                            </p>
-                            <div className="tag_wrap">
-                                <div className="tag">#Java</div>
-                                <div className="tag">#SpringFramework</div>
-                            </div>
-                        </div>
-                    </li>
+                    {list.map(post => {
+                        return (
+                            <li>
+                                <div className="content_box">
+                                    <div className="li_title">
+                                        <span>{post.userBlogCategoryId}</span>
+                                        <p>{post.title}</p>
+                                    </div>
+                                    <p className="li_text" dangerouslySetInnerHTML = {{__html:post.contents}}>
+                                    </p>
+                                    <div className="tag_wrap">
+                                        {/* <div className="tag">#Java</div>
+                                        <div className="tag">#SpringFramework</div> */}
+                                    </div>
+                                </div>
+                            </li>
+                    )})}
                 </ul>
             </div>
             <div className="pagination">
@@ -97,4 +62,4 @@ const list = () => {
     );
 };
 
-export default list;
+export default List;

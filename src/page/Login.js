@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -7,6 +8,8 @@ const Login = () => {
         id : "",
         password : ""
     });
+
+    const navigate = useNavigate();
 
     const onLogin = () => {
         axios
@@ -29,6 +32,9 @@ const Login = () => {
             .catch(e => {
                 console.log("---------------");
                 console.error(e);
+            });
+
+            navigate(`/admin`, {
             });
     }
 

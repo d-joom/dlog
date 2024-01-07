@@ -3,12 +3,26 @@ import axios from 'axios';
 import Logo from '../img/logo.png';
 import Dir from '../img/dir.png';
 import { Link } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 
 const Navigation = () => {
 
     const [menu, setMenu] = useState([]);
     const [user, setUser] = useState([]);
     const param = useParams();
+    const navigate = useNavigate();
+
+    const goCategoryPage = (e) => {
+        navigate(`${param.userId}/list/${e.uuid}`, {
+            state: e
+        });
+    }
+
+    const goSettingPage = () => {
+        navigate(`${param.userId}/setting`, {
+            state: user
+        });
+    }
 
     useEffect(() => {
         axios
@@ -21,7 +35,7 @@ const Navigation = () => {
             });
 
         axios
-            .get(`/users/${param.userId}`)
+            .get(`/user/id?userId=${param.userId}`)
             .then(response => {
                 setUser(response.data.data);
             })
@@ -35,22 +49,24 @@ const Navigation = () => {
             <div>
             <div className="logo_wrap">
                 <Link to="/admin">
-                    <img src={Logo} alt="logo image"/><p>DEV</p>
+                    <img src={Logo} alt="logo image"/><p>Plana</p>
                 </Link>
             </div>
             <div className="profile_wrap">
                 <div className="profile_img">
-                
                 </div>
                 <div className="profile_name">
-                    Jumin Kim
+                    {user.name}
                 </div>
                 <div className="profile_description">
-                    3년차 백엔드 개발자<br/>
-                    Java / React
+                    {user.description}
                 </div>
                 <div className="career_btn">
                     <button>Career<i class="xi-angle-right-min ml-5"></i></button>
+                </div>
+                <div className="profile_btn_wrap">
+                    <div className="post_write"><button>글쓰기</button></div>
+                    <div className="user_setting"><button onClick={() => goSettingPage()}>설정</button></div>
                 </div>
             </div>
             <div className="category_wrap">
@@ -61,10 +77,10 @@ const Navigation = () => {
                                 <a href="#">{m.name}</a>
                                {m.children.length > 0 ? 
                                <ul className="depth2">
-                                    {m.children.map(children => {
+                                    {m.children?.map(children => {
                                         return (
                                     <li>
-                                        <a href="#">{children.name} <span></span></a>
+                                        <button onClick={() => goCategoryPage(children)}>{children.name} <span></span></button>
                                     </li>
                                         )
                                     })}

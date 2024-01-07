@@ -12,6 +12,7 @@ const Main = () => {
 
     const [list, setList] = useState([]);
     const [userBlog, setUserBlog] = useState();
+    const [topCategory, setTopCategory] = useState();
     const navigate = useNavigate();
 
     const param = useParams();
@@ -26,17 +27,27 @@ const Main = () => {
         axios
             .get(`/blog/${param.userId}`)
             .then(response => {
+                console.log(response.data.data.uuid);
                 setUserBlog(response.data.data);
                 axios
-                .get(`/posts?userBlogId=${response.data.data.uuid}&isDeleted=false&isTemporary=false`)
-                .then(postResponse => {
-                    console.log(postResponse);
-                    setList(postResponse.data.list);
-                })
+                    .get(`/posts?userBlogId=${response.data.data.uuid}&isDeleted=false&isTemporary=false`)
+                    .then(postResponse => {
+                        setList(postResponse.data.list);
+                    })
+                axios
+                    .get(`/blog/categories/top/${response.data.data.uuid}`)
+                    .then(topResponse => {
+                        setTopCategory(topResponse.data.list);
+                    })
+                    .catch(e => {
+                        console.error(e);
+                    });
             })
             .catch(e => {
                 console.error(e);
             });
+
+        
     },[])
 
     return (
@@ -45,45 +56,19 @@ const Main = () => {
                 <div className="content_box">
                     <p className="dashboard_title">Blog Top Topic</p>
                     <ul>
-                        <li>
-                            <div className="stack_num">1</div>
+                    {topCategory?.map((categoryRank, index) => (
+                        <li key={index}>
+                            <div className="stack_num">{index + 1}</div>
                             <div className="dashboard_logo_wrap">
                                 <img src={Stack_1} alt="logo image"/>
                             </div>
-                            <p>Java<span>(32)</span></p>
+                            <p>{categoryRank.name}<span>({categoryRank.postCount})</span></p>
                         </li>
-                        <li>
-                            <div className="stack_num">2</div>
-                            <div className="dashboard_logo_wrap">
-                                <img src={Stack_2} alt="logo image"/>
-                            </div>
-                            <p>React.js<span>(27)</span></p>
-                        </li>
-                        <li>
-                            <div className="stack_num">3</div>
-                            <div className="dashboard_logo_wrap">
-                                <img src={Stack_3} alt="logo image"/>
-                            </div>
-                            <p>MySQL<span>(26)</span></p>
-                        </li>
-                        <li>
-                            <div className="stack_num">4</div>
-                            <div className="dashboard_logo_wrap">
-                                <img src={Stack_4} alt="logo image"/>
-                            </div>
-                            <p>Elastic Search<span>(22)</span></p>
-                        </li>
-                        <li>
-                            <div className="stack_num">5</div>
-                            <div className="dashboard_logo_wrap">
-                                <img src={Stack_5} alt="logo image"/>
-                            </div>
-                            <p>Rust<span>(7)</span></p>
-                        </li>
+                    ))}
                     </ul>
                 </div>
                 <div className="content_box">
-                    <p className="dashboard_title">Weekly Best Postings</p>
+                    <p className="dashboard_title">Weekly Top Postings</p>
                     <ul>
                         <li><div>1</div>JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</li>
                         <li><div>2</div>JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</li>

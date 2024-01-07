@@ -81,7 +81,7 @@ const Write = () => {
                 
                 <div className="write_content_wrap">
                     <Editor
-                        initialValue="hello react editor world!"
+                        initialValue=""
                         placeholder='내용을 입력해주세요.'
                         previewStyle="vertical"
                         height="600px"
@@ -95,7 +95,7 @@ const Write = () => {
                     />
                 </div>
                 <div class="btn_wrap">
-                    {/* <button className="outline_btn">임시저장</button> */}
+                    <button className="outline_btn">취소</button>
                     <button className="solid_btn">등록</button>
                 </div>
 
