@@ -1,0 +1,6 @@
+.category_setting_wrap li {margin: 20px 0;}
+.content_title {font-size: 1.2rem; color:var(--main-color); font-weight:600; margin-bottom:20px;}
+.add_menu_btn {border: 1px solid var(--gray-line); border-radius: 5px; padding:4px 7px; font-size: 0.9rem; }
+span.add_menu_btn {margin-left:20px;}
+div.add_menu_btn { display: inline-block; margin-top:20px;}
+.add_menu_btn:hover {cursor:pointer;}

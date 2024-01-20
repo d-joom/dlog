@@ -46,8 +46,6 @@ const Main = () => {
             .catch(e => {
                 console.error(e);
             });
-
-        
     },[])
 
     return (

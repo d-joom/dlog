@@ -19,6 +19,8 @@ body {
 input {border: 1px solid var(--gray-line); padding : 10px; box-sizing:border-box; font-size: 1rem; width: 100%;}
 input:focus, select:focus {outline: none; border:1px solid var(--main-color);}
 
+.input_title {font-weight: bold; margin: 15px 0 10px;}
+
 select {border: 1px solid var(--gray-line); padding : 10px; box-sizing:border-box; font-size: 1rem;}
 
 /*button*/

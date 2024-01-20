@@ -9,6 +9,7 @@ import Write from './page/Write';
 import UserSetting from './page/UserSetting';
 import Layout from './component/Layout';
 import Login from './page/Login';
+import MenuSetting from './page/MenuSetting';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/:userId/detail/:uuid" element={<Detail/>}/>
         <Route path="/:userId/write" element={<Write/>}/>
         <Route path="/:userId/setting" element={<UserSetting/>}/>
+        <Route path="/:userId/menu" element={<MenuSetting/>}/>
       </Route>
       <Route path="/login" element={<Login />}></Route>
     </Routes>

@@ -24,6 +24,18 @@ const Navigation = () => {
         });
     }
 
+    const goSettingCategoryPage = () => {
+        navigate(`${param.userId}/menu`, {
+            state: menu
+        });
+    }
+
+    const goWritePage = () => {
+        navigate(`${param.userId}/write`, {
+            state: user
+        });
+    }
+
     useEffect(() => {
         axios
             .get("/blog/categories/5bf00e8a-3222-4cef-a195-8ddd5af0c7c5")
@@ -42,7 +54,7 @@ const Navigation = () => {
             .catch(e => {
                 console.error(e);
             });
-    },[])
+    },[]);
 
     return (
         <div className="nav_wrap">
@@ -54,6 +66,7 @@ const Navigation = () => {
             </div>
             <div className="profile_wrap">
                 <div className="profile_img">
+                    <img src={user.picture}/>
                 </div>
                 <div className="profile_name">
                     {user.name}
@@ -65,8 +78,9 @@ const Navigation = () => {
                     <button>Career<i class="xi-angle-right-min ml-5"></i></button>
                 </div>
                 <div className="profile_btn_wrap">
-                    <div className="post_write"><button>글쓰기</button></div>
-                    <div className="user_setting"><button onClick={() => goSettingPage()}>설정</button></div>
+                    <div className="post_write"><button onClick={() => goWritePage()}>글쓰기</button></div>
+                    <div className="user_setting"><button onClick={() => goSettingPage()}>유저설정</button></div>
+                    <div className="category_setting"><button onClick={() => goSettingCategoryPage()}>메뉴설정</button></div>
                 </div>
             </div>
             <div className="category_wrap">
