@@ -1,0 +1,18 @@
+.career_wrap {}
+.flex_wrap {display: flex;}
+.career_wrap h1 {font-size: 30px; font-weight: 600; padding-bottom:50px;}
+.self_introduction_wrap {padding: 50px  100px;}
+.self_introduction_wrap .picture {width:50%;}
+.self_introduction_wrap .picture img {width: 100%;}
+.self_introduction_wrap .text {padding-left: 20px; line-height: 1.6rem;}
+
+.skill_wrap {background-color: var(--light-gray); padding: 50px 100px;}
+.skill_wrap ul {justify-content:space-between; width:60%;}
+.skill_wrap ul li div {position: relative; background-color: #fff; width: 120px; height: 120px; border-radius: 100px; text-indent: 999999px; display: flex; justify-content: center; align-items: center;}
+.skill_wrap ul li div::after {position:absolute; content:"";  display:block; }
+.skill_wrap ul li:nth-child(1) div::after {background: url('../img/stack_java.png') no-repeat; width:67px; height:41px;}
+.skill_wrap ul li:nth-child(2) div::after {background: url('../img/stack_react.png') no-repeat; width:55px; height:49px;}
+.skill_wrap ul li:nth-child(3) div::after {background: url('../img/stack_rust.png') no-repeat; width:48px; height:48px;}
+.skill_wrap ul li:nth-child(4) div::after {background: url('../img/stack_mysql.png') no-repeat; width:56px; height:39px;}
+.skill_wrap ul li:nth-child(5) div::after {background: url('../img/stack_es.png') no-repeat; width:79px; height:38px;}
+.skill_wrap ul li span {display: block; text-align: center; padding-top: 15px; font-size:1.0rem; font-weight:600; font-family: var(--en-font);}

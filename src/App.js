@@ -10,6 +10,7 @@ import UserSetting from './page/UserSetting';
 import Layout from './component/Layout';
 import Login from './page/Login';
 import MenuSetting from './page/MenuSetting';
+import Career from './page/Career';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <Routes>
       <Route element={<Layout />} >
         <Route path="/:userId" element={<Main />} />
+        <Route path="/:userId/career" element={<Career/>}/>
         <Route path="/:userId/list/:uuid" element={<List/>}/>
         <Route path="/:userId/detail/:uuid" element={<Detail/>}/>
         <Route path="/:userId/write" element={<Write/>}/>

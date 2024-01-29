@@ -34,7 +34,7 @@ const Login = () => {
                 console.error(e);
             });
 
-            navigate(`/admin`, {
+            navigate(`/${login.id}`, {
             });
     }
 

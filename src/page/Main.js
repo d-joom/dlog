@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import '../css/main.css';
+import { get } from '../services/apiService';
 import Stack_1 from '../img/stack_java.png';
 import Stack_2 from '../img/stack_react.png';
 import Stack_3 from '../img/stack_mysql.png';
@@ -24,28 +25,28 @@ const Main = () => {
     }
 
     useEffect(() => {
-        axios
-            .get(`/blog/${param.userId}`)
-            .then(response => {
-                console.log(response.data.data.uuid);
-                setUserBlog(response.data.data);
-                axios
-                    .get(`/posts?userBlogId=${response.data.data.uuid}&isDeleted=false&isTemporary=false`)
-                    .then(postResponse => {
-                        setList(postResponse.data.list);
-                    })
-                axios
-                    .get(`/blog/categories/top/${response.data.data.uuid}`)
-                    .then(topResponse => {
-                        setTopCategory(topResponse.data.list);
-                    })
-                    .catch(e => {
-                        console.error(e);
-                    });
-            })
-            .catch(e => {
-                console.error(e);
-            });
+        const fetchPosts = async () => {
+            try {
+              const data = await get(`/posts?userId=${param.userId}&isDeleted=false&isTemporary=false`);
+              setList(data.list);
+            } catch (error) {
+              console.error('Error fetching users:', error);
+            }
+        };
+
+        fetchPosts();
+
+        const fetchTopCategory = async () => {
+            try {
+              const data = await get(`/blog/categories/top/${param.userId}`);
+              setTopCategory(data.list);
+            } catch (error) {
+              console.error('Error fetching users:', error);
+            }
+        };
+
+        fetchTopCategory();
+        
     },[])
 
     return (
