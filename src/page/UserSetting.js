@@ -4,7 +4,7 @@ import "../css/userSetting.css";
 import {Editor} from '@toast-ui/react-editor';
 import Profile from '../img/profile.png';
 import { useLocation } from "react-router-dom";
-import { get, put } from '../services/apiService';
+import { post, put } from '../services/apiService';
 
 const UserSetting = () => {
 
@@ -25,11 +25,10 @@ const UserSetting = () => {
         }
     };
 
-    const fetchUploadS3 = async () => {
+    const fetchUploadS3 = async (formData) => {
         try {
           const result = await post(`/s3/upload`, formData);
           setForm({...form, picture : result});
-          setMenu(category.list);
         } catch (error) {
           console.error('Error fetching users:', error);
           // 오류 처리
@@ -72,7 +71,7 @@ const UserSetting = () => {
 
     const postImage = (formData, callback) => {
 
-        fetchUploadS3();
+        fetchUploadS3(formData);
 
         // axios.post('/s3/upload', formData, {
         //     headers: {

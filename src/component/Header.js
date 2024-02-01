@@ -10,7 +10,7 @@ const header = () => {
             {localStorage.getItem('accessToken') == null ? 
             <a className="login_btn" href="/login">login</a>
             :
-            null
+            <p>{localStorage.getItem('accessToken')}</p>
             }
             
         </div>

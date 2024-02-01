@@ -2,7 +2,7 @@
 import instance from './axios'; 
 
 // Create
-export const create = async (url, data) => {
+export const post = async (url, data) => {
   try {
     const response = await instance.post(url, data);
     return response.data;
@@ -24,7 +24,7 @@ export const get = async (url) => {
 };
 
 // Update
-export const update = async (url, data) => {
+export const put = async (url, data) => {
   try {
     const response = await instance.put(url, data);
     return response.data;

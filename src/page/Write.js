@@ -2,9 +2,9 @@ import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import "../css/board.css";
 import {Editor} from '@toast-ui/react-editor';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import '@toast-ui/editor/toastui-editor.css';
-import { post } from '../services/apiService';
+import { get, post } from '../services/apiService';
 
 const Write = () => {
 
@@ -18,16 +18,17 @@ const Write = () => {
         isTemporary:false
     });
     const editorRef = useRef();
+    const param = useParams();
 
     const onUploadImage = async (blob, callback) => {
         await postImage(blob, callback);
         return false;
       };
 
-      const fetchUploadS3 = async () => {
+      const fetchUploadS3 = async (formData) => {
+        const data = null;
         try {
-            const data = await post(`/s3/upload`, formData);
-            localStorage.setItem('accessToken', data);
+            data = await post(`/s3/upload`, formData);
         } catch (error) {
           console.error('Error fetching users:', error);
           // 오류 처리
@@ -36,8 +37,9 @@ const Write = () => {
     };
 
     const fetchCreatePost = async () => {
+        const data = null;
         try {
-            const data = await post(`/post`, form);
+             data = await post(`/post`, form);
         } catch (error) {
           console.error('Error fetching users:', error);
           // 오류 처리
@@ -59,7 +61,7 @@ const Write = () => {
         const formData = new FormData();
         formData.append('multipartFile',blob);
 
-        fetchUploadS3().then((data) => {
+        fetchUploadS3(formData).then((data) => {
             callback(data, blob.name);
         });
 
@@ -94,7 +96,7 @@ const Write = () => {
       
     const onSubmit = () => {
        
-        fetchCreatePost().then(() => {
+        fetchCreatePost().then((data) => {
             if(data.success) {
                 window.location.replace(`detail/${data.data.uuid}`);
             } else {
