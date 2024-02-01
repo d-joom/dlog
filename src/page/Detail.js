@@ -4,7 +4,7 @@ import {Editor} from '@toast-ui/react-editor';
 import { useLocation } from "react-router-dom";
 import '@toast-ui/editor/toastui-editor.css';
 import "../css/main.css";
-
+import { get, put } from '../services/apiService';
 import { useNavigate, useParams } from 'react-router-dom'
 
 const Detail = () => {
@@ -27,36 +27,89 @@ const Detail = () => {
         setAction(!action);
     }
 
-    const modifyPost = () => {
-        axios
-            .get(`/blog/categories/${state.uuid}`)
-            .then(response => {
-                
-                setMenu(response.data.list);
-                setIsModify(!isModify);
-            })
-            .catch(e => {
-                console.error(e);
+    const fetchCategory = async () => {
+        try {
+          const data = await get(`/blog/categories/${state.uuid}`);
+          setMenu(data.list);
+        setIsModify(!isModify);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
+    const fetchModifyPost = async () => {
+        try {
+          const data = await put(`/post/${uuid}`, form);
+          setMenu(data.list);
+          setIsModify(!isModify);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
+    const fetchDeletePost = async () => {
+        try {
+          const data = await delete(`/post/${uuid}`, form);
+          setPost(data.data);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
+    const fetchGetPost = async () => {
+        try {
+            const data = await get(`/post/${uuid}`);
+            setPost(data.data);
+            setForm({
+                userBlogId: null,
+                userBlogCategoryId: null,
+                title : data.data.title,
+                contents : data.data.contents,
+                isTemporary : false
             });
-        
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
+    const modifyPost = () => {
+        fetchCategory();
+        // axios
+        //     .get(`/blog/categories/${state.uuid}`)
+        //     .then(response => {
+                
+        //         setMenu(response.data.list);
+        //         setIsModify(!isModify);
+        //     })
+        //     .catch(e => {
+        //         console.error(e);
+        //     });
     }
 
     const onModify = () => {
 
-        axios
-            .put(`/post/${uuid}`, null, {
-                headers: {
-                  "token": localStorage.getItem('accessToken')
-                },
-                params: form
-              })
-            .then(response => {
-                console.log(response);
-                window.location.replace(`/detail/${uuid}`);
-            })
-            .catch(e => {
-                console.error(e);
-            });
+        fetchModifyPost().then(() => {
+            window.location.replace(`/detail/${uuid}`);
+        });
+
+        // axios
+        //     .put(`/post/${uuid}`, null, {
+        //         headers: {
+        //           "token": localStorage.getItem('accessToken')
+        //         },
+        //         params: form
+        //       })
+        //     .then(response => {
+        //         console.log(response);
+        //         window.location.replace(`/detail/${uuid}`);
+        //     })
+        //     .catch(e => {
+        //         console.error(e);
+        //     });
     }
 
     const cancelModify = () => {
@@ -81,20 +134,11 @@ const Detail = () => {
 
     const deletePost = () => {
         if (window.confirm("게시물을 삭제하시겠습니까?")) {
-            // axios
-            // .delete(`/post/${uuid}`)
-            // .then(response => {
-            //     setPost(response.data.data);
-            // })
-            // .then(() => {
-            //     alert("삭제되었습니다.");
-            //     navigate('/');
-            // })
-            // .catch(e => {
-            //     console.error(e);
-            // });
-            alert("삭제되었습니다");
-            navigate('/');
+            
+            fetchDeletePost().then(() => {
+                alert("삭제되었습니다.");
+                navigate('/');
+            });
           } else {
             alert("취소합니다.");
           }
@@ -102,21 +146,23 @@ const Detail = () => {
     }
 
     useEffect(() => {
-        axios
-        .get(`/post/${uuid}`)
-        .then(response => {
-            setPost(response.data.data);
-            setForm({
-                userBlogId: null,
-                userBlogCategoryId: null,
-                title : response.data.data.title,
-                contents : response.data.data.contents,
-                isTemporary : false
-            });
-        })
-        .catch(e => {
-            console.error(e);
-        });
+
+        fetchGetPost();
+        // axios
+        // .get(`/post/${uuid}`)
+        // .then(response => {
+        //     setPost(response.data.data);
+        //     setForm({
+        //         userBlogId: null,
+        //         userBlogCategoryId: null,
+        //         title : response.data.data.title,
+        //         contents : response.data.data.contents,
+        //         isTemporary : false
+        //     });
+        // })
+        // .catch(e => {
+        //     console.error(e);
+        // });
     },[uuid])
 
 

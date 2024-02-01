@@ -4,6 +4,7 @@ import "../css/board.css";
 import {Editor} from '@toast-ui/react-editor';
 import { useLocation } from "react-router-dom";
 import '@toast-ui/editor/toastui-editor.css';
+import { post } from '../services/apiService';
 
 const Write = () => {
 
@@ -23,22 +24,57 @@ const Write = () => {
         return false;
       };
 
+      const fetchUploadS3 = async () => {
+        try {
+            const data = await post(`/s3/upload`, formData);
+            localStorage.setItem('accessToken', data);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+        return data;
+    };
+
+    const fetchCreatePost = async () => {
+        try {
+            const data = await post(`/post`, form);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+        return data;
+    };
+
+    const fetchCategory = async () => {
+        try {
+            const data = await get(`/blog/categories/${param.userId}`);
+            setMenu(data.list);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
       const postImage = (blob, callback) => {
         const formData = new FormData();
         formData.append('multipartFile',blob);
 
-        axios.post('/s3/upload', formData, {
-            headers: {
-             "content-type": "multipart/form-data",
-              "token": localStorage.getItem('accessToken')
-            }
-          })
-        .then(response => {
-            callback(response.data, blob.name);
-        })
-        .catch(e => {
-            console.error(e);
+        fetchUploadS3().then((data) => {
+            callback(data, blob.name);
         });
+
+        // axios.post('/s3/upload', formData, {
+        //     headers: {
+        //      "content-type": "multipart/form-data",
+        //       "token": localStorage.getItem('accessToken')
+        //     }
+        //   })
+        // .then(response => {
+        //     callback(response.data, blob.name);
+        // })
+        // .catch(e => {
+        //     console.error(e);
+        // });
       }
 
       const handleChange = e => {
@@ -57,23 +93,32 @@ const Write = () => {
 
       
     const onSubmit = () => {
-        axios
-            .post(`/post`, null, {
-                headers: {
-                  "token": localStorage.getItem('accessToken')
-                },
-                params: form
-              })
-            .then(response => {
-                if(response.data.success) {
-                    window.location.replace(`detail/${response.data.data.uuid}`);
-                } else {
-                    console.log(response.data.message)
-                }
-            })
-            .catch(e => {
-                console.error(e);
-            });
+       
+        fetchCreatePost().then(() => {
+            if(data.success) {
+                window.location.replace(`detail/${data.data.uuid}`);
+            } else {
+                alert("글 작성을 실패했습니다.");
+            }
+        });
+
+        // axios
+        //     .post(`/post`, null, {
+        //         headers: {
+        //           "token": localStorage.getItem('accessToken')
+        //         },
+        //         params: form
+        //       })
+        //     .then(response => {
+        //         if(response.data.success) {
+        //             window.location.replace(`detail/${response.data.data.uuid}`);
+        //         } else {
+        //             console.log(response.data.message)
+        //         }
+        //     })
+        //     .catch(e => {
+        //         console.error(e);
+        //     });
     }
 
     const onSelect = (e) => {
@@ -82,14 +127,17 @@ const Write = () => {
 
 
     useEffect(() => {
-        axios
-            .get("/blog/categories/5bf00e8a-3222-4cef-a195-8ddd5af0c7c5")
-            .then(response => {
-                setMenu(response.data.list);
-            })
-            .catch(e => {
-                console.error(e);
-            });
+
+      
+        fetchCategory();
+        // axios
+        //     .get("/blog/categories/5bf00e8a-3222-4cef-a195-8ddd5af0c7c5")
+        //     .then(response => {
+        //         setMenu(response.data.list);
+        //     })
+        //     .catch(e => {
+        //         console.error(e);
+        //     });
         },[])
 
     return (

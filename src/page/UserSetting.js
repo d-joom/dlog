@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useRef, useCallback} from 'react';
-import axios from 'axios';
 import "../css/board.css";
 import "../css/userSetting.css";
 import {Editor} from '@toast-ui/react-editor';
 import Profile from '../img/profile.png';
 import { useLocation } from "react-router-dom";
+import { get, put } from '../services/apiService';
 
 const UserSetting = () => {
 
@@ -16,24 +16,48 @@ const UserSetting = () => {
         description: state.description
     });
 
+    const fetchModifyUser = async () => {
+        try {
+          await put(`/user/${state.uuid}`, form);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
+    const fetchUploadS3 = async () => {
+        try {
+          const result = await post(`/s3/upload`, formData);
+          setForm({...form, picture : result});
+          setMenu(category.list);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
     const onSubmit = () => {
-        axios
-            .put(`/user/${state.uuid}`, null, {
-                headers: {
-                  "token": localStorage.getItem('accessToken'),
-                  "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                params: form
-              })
-            .then(response => {
-                console.log(response);
-                alert("수정이 완료되었습니다.");
-            })
-            .catch(e => {
-                console.log("---------------");
-                console.error(e);
-            });
+        
+        fetchModifyUser().then(() => {
+            alert("수정이 완료되었습니다.");
+        });
+        // axios
+        //     .put(`/user/${state.uuid}`, null, {
+        //         headers: {
+        //           "token": localStorage.getItem('accessToken'),
+        //           "Content-Type": "application/json",
+        //             Accept: "application/json",
+        //         },
+        //         params: form
+        //       })
+        //     .then(response => {
+        //         console.log(response);
+        //         alert("수정이 완료되었습니다.");
+        //     })
+        //     .catch(e => {
+        //         console.log("---------------");
+        //         console.error(e);
+        //     });
 
     }
 
@@ -48,18 +72,20 @@ const UserSetting = () => {
 
     const postImage = (formData, callback) => {
 
-        axios.post('/s3/upload', formData, {
-            headers: {
-             "content-type": "multipart/form-data",
-              "token": localStorage.getItem('accessToken')
-            }
-          })
-        .then(response => {
-            setForm({...form, picture : response.data});
-        })
-        .catch(e => {
-            console.error(e);
-        });
+        fetchUploadS3();
+
+        // axios.post('/s3/upload', formData, {
+        //     headers: {
+        //      "content-type": "multipart/form-data",
+        //       "token": localStorage.getItem('accessToken')
+        //     }
+        //   })
+        // .then(response => {
+        //     setForm({...form, picture : response.data});
+        // })
+        // .catch(e => {
+        //     console.error(e);
+        // });
       }
 
     const onChange = (e) => {

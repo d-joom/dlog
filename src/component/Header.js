@@ -7,7 +7,12 @@ const header = () => {
                 <input placeholder='Search'></input>
                 <a href="#"><i class="xi-search"></i></a>
             </div>
+            {localStorage.getItem('accessToken') == null ? 
             <a className="login_btn" href="/login">login</a>
+            :
+            null
+            }
+            
         </div>
     );
 };

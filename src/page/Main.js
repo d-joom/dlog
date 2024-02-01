@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import '../css/main.css';
 import { get } from '../services/apiService';
@@ -24,27 +23,26 @@ const Main = () => {
         });
     }
 
+    const fetchPosts = async () => {
+        try {
+          const data = await get(`/posts?userId=${param.userId}&isDeleted=false&isTemporary=false`);
+          setList(data.list);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+        }
+    };
+
+    const fetchTopCategory = async () => {
+        try {
+          const data = await get(`/blog/categories/top/${param.userId}`);
+          setTopCategory(data.list);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-              const data = await get(`/posts?userId=${param.userId}&isDeleted=false&isTemporary=false`);
-              setList(data.list);
-            } catch (error) {
-              console.error('Error fetching users:', error);
-            }
-        };
-
         fetchPosts();
-
-        const fetchTopCategory = async () => {
-            try {
-              const data = await get(`/blog/categories/top/${param.userId}`);
-              setTopCategory(data.list);
-            } catch (error) {
-              console.error('Error fetching users:', error);
-            }
-        };
-
         fetchTopCategory();
         
     },[])

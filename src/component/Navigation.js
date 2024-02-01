@@ -18,31 +18,30 @@ const Navigation = () => {
         });
     }
 
-    useEffect(() => {
-        const fetchCategory = async () => {
-            try {
-              // apiService에서 정의한 get 함수 호출
-              const category = await get(`/blog/categories/${param.userId}`);
-              setMenu(category.list);
-            } catch (error) {
-              console.error('Error fetching users:', error);
-              // 오류 처리
-            }
-        };
-      
-        fetchCategory();
+    const fetchCategory = async () => {
+        try {
+          // apiService에서 정의한 get 함수 호출
+          const category = await get(`/blog/categories/${param.userId}`);
+          setMenu(category.list);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
 
-        const fetchUser = async () => {
-            try {
-              // apiService에서 정의한 get 함수 호출
-              const userDate = await get(`/user/id?userId=${param.userId}`);
-              setUser(userDate.data);
-            } catch (error) {
-              console.error('Error fetching users:', error);
-              // 오류 처리
-            }
-        };
-      
+    const fetchUser = async () => {
+        try {
+          // apiService에서 정의한 get 함수 호출
+          const userDate = await get(`/user/id?userId=${param.userId}`);
+          setUser(userDate.data);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
+    useEffect(() => {
+        fetchCategory();
         fetchUser();
     },[]);
 
@@ -67,11 +66,13 @@ const Navigation = () => {
                 <div className="career_btn">
                     <button onClick={() => movePage(`${param.userId}/career`)}>Career<i class="xi-angle-right-min ml-5"></i></button>
                 </div>
+                {localStorage.getItem('accessToken') == null ? null : 
                 <div className="profile_btn_wrap">
                     <div className="post_write"><button onClick={() => movePage(`${param.userId}/write`)}>글쓰기</button></div>
                     <div className="user_setting"><button onClick={() => movePage(`${param.userId}/setting`)}>유저설정</button></div>
                     <div className="category_setting"><button onClick={() => movePage(`${param.userId}/menu`)}>메뉴설정</button></div>
-                </div>
+                </div>}
+                
             </div>
             <div className="category_wrap">
                 <ul className="depth1">

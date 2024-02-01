@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { post } from '../services/apiService';
 
 const Login = () => {
 
@@ -11,31 +12,49 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const onLogin = () => {
-        axios
-            .post("/login",
-            {
+    const fetchLogin = async () => {
+        try {
+            const data = await post(`/login`, {
                 userId: login.id,
                 password: login.password
-            },{
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                }
-            })
-            .then(response => {
-                localStorage.setItem('accessToken', response.data);
-            })
-            .then(
-                console.log(localStorage.getItem("login-token"))
-            )
-            .catch(e => {
-                console.log("---------------");
-                console.error(e);
-            });
+             });
+            localStorage.setItem('accessToken', data);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
 
+    const onLogin = () => {
+
+        fetchLogin().then(() => {
             navigate(`/${login.id}`, {
             });
+        });
+        // axios
+        //     .post("/login",
+        //     {
+        //         userId: login.id,
+        //         password: login.password
+        //     },{
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             Accept: "application/json",
+        //         }
+        //     })
+        //     .then(response => {
+        //         localStorage.setItem('accessToken', response.data);
+        //     })
+        //     .then(
+        //         console.log(localStorage.getItem("login-token"))
+        //     )
+        //     .catch(e => {
+        //         console.log("---------------");
+        //         console.error(e);
+        //     });
+
+        //     navigate(`/${login.id}`, {
+        //     });
     }
 
     const onChange = (e) => {

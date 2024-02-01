@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "../css/main.css";
+import { get, put } from '../services/apiService';
 
 
 const List = () => {
@@ -12,15 +12,27 @@ const List = () => {
     const param = useParams();
     const {state} = useLocation();
 
+    const fetchPost = async () => {
+        try {
+          const data = await get(`/posts?userBlogCategoryId=${param.uuid}`);
+          setList(data.list);
+        } catch (error) {
+          console.error('Error fetching users:', error);
+          // 오류 처리
+        }
+    };
+
     useEffect(() => {
-        axios
-            .get(`/posts?userBlogCategoryId=${param.uuid}`)
-            .then(response => {
-                setList(response.data.list);
-            })
-            .catch(e => {
-                console.error(e);
-            });
+
+        fetchPost();
+        // axios
+        //     .get(`/posts?userBlogCategoryId=${param.uuid}`)
+        //     .then(response => {
+        //         setList(response.data.list);
+        //     })
+        //     .catch(e => {
+        //         console.error(e);
+        //     });
 
         
     },[param.uuid])
