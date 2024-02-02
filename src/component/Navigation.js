@@ -68,9 +68,9 @@ const Navigation = () => {
                 </div>
                 {localStorage.getItem('accessToken') == null ? null : 
                 <div className="profile_btn_wrap">
-                    <div className="post_write"><button onClick={() => movePage(`${param.userId}/write`)}>글쓰기</button></div>
-                    <div className="user_setting"><button onClick={() => movePage(`${param.userId}/setting`)}>유저설정</button></div>
-                    <div className="category_setting"><button onClick={() => movePage(`${param.userId}/menu`)}>메뉴설정</button></div>
+                    <div className="post_write"><button onClick={() => movePage(`${param.userId}/write`)}><i className="xi-pen"></i>글 작성</button></div>
+                    <div className="user_setting"><button onClick={() => movePage(`${param.userId}/setting`)}><i className="xi-cog"></i>내 정보</button></div>
+                    {/* <div className="category_setting"><button onClick={() => movePage(`${param.userId}/menu`)}>메뉴설정</button></div> */}
                 </div>}
                 
             </div>

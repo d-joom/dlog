@@ -28,8 +28,14 @@ const Login = () => {
     const onLogin = () => {
 
         fetchLogin().then(() => {
-            navigate(`/${login.id}`, {
-            });
+            console.log(localStorage.getItem('accessToken'));
+            if(localStorage.getItem('accessToken') !== 'failed') {
+                navigate(`/${login.id}`, {
+                });
+            } else {
+                alert("아이디 혹은 비밀번호가 정확하지 않습니다. 다시 로그인 해주세요.");
+            }
+            
         });
         // axios
         //     .post("/login",

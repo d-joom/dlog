@@ -37,6 +37,10 @@
 .depth1 > li > a {position: relative; font-size: 16px; color: #333; font-weight: 600; text-decoration: none; padding: 15px 20px 15px 50px; background:var(--light-gray); border-radius: 10px; display: block;}
 .depth1 > li > a::before {position:absolute; content:''; width: 20px; height: 20px; background:url('../img/dir_black_bg.png') center no-repeat; left: 20px; top: 50%; translate: 0 -50%;}
 
+.profile_btn_wrap {display: flex; justify-content: center;}
+.profile_btn_wrap > div > button > i {padding-right: 7px; color: #666;}
+.profile_btn_wrap > div > button {color: #666;}
+
 .depth2 {padding-left: 50px; position:relative; margin: 20px 0;}
 .depth2::before {position:absolute; content:''; width: 1px; height: 100%; left: 20px; background-color: var(--gray-line);}
 .depth2 > li > a {color: #666; font-size: 15px; font-weight: 500; text-decoration: none; margin: 10px 0; line-height: 35px;}
