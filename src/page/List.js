@@ -22,8 +22,13 @@ const List = () => {
         }
     };
 
-    useEffect(() => {
+    const goDetail = (e) => {
+        navigate(`/${param.userId}/detail/${e}`, {
 
+        });
+    }
+
+    useEffect(() => {
         fetchPost();
         // axios
         //     .get(`/posts?userBlogCategoryId=${param.uuid}`)
@@ -40,14 +45,14 @@ const List = () => {
     return (
         <div className="content">
             <div className="post_li_wrap">
-                <p className="post_title">{state.name}<span>(13)</span></p>
+                <p className="post_title">{state}<span></span></p>
                 <ul>
                     {list.map(post => {
                         return (
                             <li>
-                                <div className="content_box">
+                                <div className="content_box" onClick={() => goDetail(post.uuid)}>
                                     <div className="li_title">
-                                        <span>{post.userBlogCategoryId}</span>
+                                        <span>{state}</span>
                                         <p>{post.title}</p>
                                     </div>
                                     <p className="li_text" dangerouslySetInnerHTML = {{__html:post.contents}}>
@@ -61,7 +66,7 @@ const List = () => {
                     )})}
                 </ul>
             </div>
-            <div className="pagination">
+            {/* <div className="pagination">
                 <div className="page_arrow prev">이전</div>
                 <div className="page_num active">1</div>
                 <div className="page_num">2</div>
@@ -69,7 +74,7 @@ const List = () => {
                 <div className="page_num">4</div>
                 <div className="page_num">5</div>
                 <div className="page_arrow next">다음</div>
-            </div>
+            </div> */}
         </div>
     );
 };

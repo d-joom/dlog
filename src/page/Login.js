@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { post } from '../services/apiService';
+import { post, login } from '../services/apiService';
 
 const Login = () => {
 

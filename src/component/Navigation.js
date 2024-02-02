@@ -18,6 +18,12 @@ const Navigation = () => {
         });
     }
 
+    const moveList = (url, e) => {
+        navigate(url, {
+            state: e
+        });
+    }
+
     const fetchCategory = async () => {
         try {
           // apiService에서 정의한 get 함수 호출
@@ -43,7 +49,7 @@ const Navigation = () => {
     useEffect(() => {
         fetchCategory();
         fetchUser();
-    },[]);
+    },[user]);
 
     return (
         <div className="nav_wrap">
@@ -85,7 +91,7 @@ const Navigation = () => {
                                     {m.children?.map(children => {
                                         return (
                                     <li>
-                                        <button onClick={() => movePage(`${param.userId}/list/${children.uuid}`)}>{children.name} <span></span></button>
+                                        <button onClick={() => moveList(`${param.userId}/list/${children.uuid}`, children.name)}>{children.name} <span></span></button>
                                     </li>
                                         )
                                     })}

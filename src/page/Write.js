@@ -4,7 +4,7 @@ import "../css/board.css";
 import {Editor} from '@toast-ui/react-editor';
 import { useLocation, useParams } from "react-router-dom";
 import '@toast-ui/editor/toastui-editor.css';
-import { get, post } from '../services/apiService';
+import { get, post, postByToken } from '../services/apiService';
 
 const Write = () => {
 
@@ -37,14 +37,13 @@ const Write = () => {
     };
 
     const fetchCreatePost = async () => {
-        const data = null;
         try {
-             data = await post(`/post`, form);
+             const data = await postByToken(`/post`, form);
+             return data;
         } catch (error) {
           console.error('Error fetching users:', error);
           // 오류 처리
         }
-        return data;
     };
 
     const fetchCategory = async () => {

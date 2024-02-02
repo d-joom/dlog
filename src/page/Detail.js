@@ -4,7 +4,7 @@ import {Editor} from '@toast-ui/react-editor';
 import { useLocation } from "react-router-dom";
 import '@toast-ui/editor/toastui-editor.css';
 import "../css/main.css";
-import { get, put } from '../services/apiService';
+import { get, put, deleteItems } from '../services/apiService';
 import { useNavigate, useParams } from 'react-router-dom'
 
 const Detail = () => {
@@ -29,7 +29,8 @@ const Detail = () => {
 
     const fetchCategory = async () => {
         try {
-          const data = await get(`/blog/categories/${state.uuid}`);
+          const data = await get(`/blog/categories/${param.userId}`);
+          console.log(data);
           setMenu(data.list);
         setIsModify(!isModify);
         } catch (error) {
@@ -51,8 +52,7 @@ const Detail = () => {
 
     const fetchDeletePost = async () => {
         try {
-          const data = await delete(`/post/${uuid}`, form);
-          setPost(data.data);
+          const data = await deleteItems(`/post/${uuid}`, form);
         } catch (error) {
           console.error('Error fetching users:', error);
           // 오류 처리
@@ -93,7 +93,7 @@ const Detail = () => {
     const onModify = () => {
 
         fetchModifyPost().then(() => {
-            window.location.replace(`/detail/${uuid}`);
+            window.location.replace(`/${param.userId}/detail/${uuid}`);
         });
 
         // axios
@@ -137,7 +137,7 @@ const Detail = () => {
             
             fetchDeletePost().then(() => {
                 alert("삭제되었습니다.");
-                navigate('/');
+                navigate(`/${param.userId}`);
             });
           } else {
             alert("취소합니다.");

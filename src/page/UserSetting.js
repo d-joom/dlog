@@ -3,12 +3,15 @@ import "../css/board.css";
 import "../css/userSetting.css";
 import {Editor} from '@toast-ui/react-editor';
 import Profile from '../img/profile.png';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { post, put } from '../services/apiService';
 
 const UserSetting = () => {
 
     const {state} = useLocation();
+
+    const param = useParams();
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         picture : state.picture ? state.picture : Profile,
@@ -18,7 +21,8 @@ const UserSetting = () => {
 
     const fetchModifyUser = async () => {
         try {
-          await put(`/user/${state.uuid}`, form);
+          const data = await put(`/user/${state.uuid}`, form);
+          console.log(data);
         } catch (error) {
           console.error('Error fetching users:', error);
           // 오류 처리
@@ -39,6 +43,8 @@ const UserSetting = () => {
         
         fetchModifyUser().then(() => {
             alert("수정이 완료되었습니다.");
+            navigate(`/${param.userId}`, {
+            });
         });
         // axios
         //     .put(`/user/${state.uuid}`, null, {
@@ -71,7 +77,9 @@ const UserSetting = () => {
 
     const postImage = (formData, callback) => {
 
-        fetchUploadS3(formData);
+        fetchUploadS3(formData).then(() => {
+            console.log(form);
+        });
 
         // axios.post('/s3/upload', formData, {
         //     headers: {

@@ -49,7 +49,7 @@ const Main = () => {
 
     return (
         <div className="content">
-            <div className="dashboard">
+            {/* <div className="dashboard">
                 <div className="content_box">
                     <p className="dashboard_title">Blog Top Topic</p>
                     <ul>
@@ -72,7 +72,7 @@ const Main = () => {
                         <li><div>3</div>JsonIgnoreProperties 어노테이션 - Json to Object Unrecognized field 에러 해결</li>
                     </ul>
                 </div>
-            </div>
+            </div> */}
             <div className="post_li_wrap">
                 <p className="post_title">All Posts</p>
                 <ul>
